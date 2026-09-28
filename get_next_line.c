@@ -6,7 +6,7 @@
 /*   By: jagrund <jagrund@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 16:59:38 by jagrund           #+#    #+#             */
-/*   Updated: 2026/09/17 21:01:16 by jagrund          ###   ########.fr       */
+/*   Updated: 2026/09/28 19:58:56 by jagrund          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,41 @@ char	*get_next_line(int fd)
 	int				i;
 	int				j;
 	int				k;
+	int				found;
 	static char		*rest;
+	char			*stash;
 	char			*line;
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	x = read(fd, buffer, BUFFER_SIZE);
-	if (x == -1)
+	found = 0;
+	x = 1;
+	while (found == 0 && x != 0)
 	{
-		free(buffer);
-		return (NULL);
+		stash = NULL;
+		x = read(fd, buffer, BUFFER_SIZE);
+		if (x == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		buffer[x] = '\0';
+		i = 0;
+		while (buffer[i])
+		{
+			if (buffer[i] == '\n')
+				found = 1;
+			i++;
+		}
 	}
-	buffer[x] = '\0';
 	line = NULL;
 	i = 0;
 	while (buffer[i])
 	{
 		if (buffer[i] == '\n')
 		{
+			found = 1;
 			line = malloc(i + 2);
 			k = 0;
 			while (k <= i)
