@@ -6,7 +6,7 @@
 /*   By: jagrund <jagrund@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 20:02:01 by jagrund           #+#    #+#             */
-/*   Updated: 2026/09/28 20:59:44 by jagrund          ###   ########.fr       */
+/*   Updated: 2026/10/01 19:43:19 by jagrund          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,35 +75,50 @@ char	*join_strings(char *s1, char *s2)
 char	*make_line(char *stash)
 {
 	int		i;
-	int		j;
+	int		len;
 	char	*newstash;
 
+	if (!stash)
+		return (NULL);
 	i = 0;
-	j = 0;
-	while (stash[i])
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	len = i;
+	if (stash[i] == '\n')
+		len++;
+	newstash = malloc(len + 1);
+	if (!newstash)
+		return (NULL);
+	i = 0;
+	while (i < len)
 	{
-		if (stash[i] == '\n')
-		{
-			newstash = malloc(i + 2);
-			while (j <= i)
-			{
-				newstash[j] = stash[j];
-				j++;
-			}
-			newstash[j] = '\0';
-			return (newstash);
-		}
-		if (stash[i] == '\0')
-		{
-			newstash = malloc(i);
-			while (j <= i)
-			{
-				newstash[j] = stash[j];
-				j++;
-			}
-			newstash[j] = '\0';
-			return (newstash);
-		}
+		newstash[i] = stash[i];
 		i++;
 	}
+	newstash[len] = '\0';
+	return (newstash);
+}
+
+char	*make_rest(char *stash)
+{
+	int		i;
+	int		k;
+	char	*rest;
+
+	if (!stash)
+		return (NULL);
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	if (stash[i] != '\n' || stash[i + 1] == '\0')
+		return (NULL);
+	rest = malloc(count_len(stash + i + 1) + 1);
+	if (!rest)
+		return (NULL);
+	k = 0;
+	i++;
+	while (stash[i])
+		rest[k++] = stash[i++];
+	rest[k] = '\0';
+	return (rest);
 }

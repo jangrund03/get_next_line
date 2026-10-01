@@ -6,76 +6,58 @@
 /*   By: jagrund <jagrund@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 16:59:38 by jagrund           #+#    #+#             */
-/*   Updated: 2026/09/28 19:58:56 by jagrund          ###   ########.fr       */
+/*   Updated: 2026/10/01 21:24:25 by jagrund          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+int	has_newline(char *s)
 {
-	char			*buffer;
-	ssize_t			x;
-	int				i;
-	int				j;
-	int				k;
-	int				found;
-	static char		*rest;
-	char			*stash;
-	char			*line;
+	int	i;
 
-	buffer = malloc(BUFFER_SIZE + 1);
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*read_to_stash(int fd, char *stash)
+{
+	char	*buffer;
+	ssize_t	bytes;
+	char	*tmp;
+
+	bytes = 1;
+	buffer = malloc(BUFFER_SIZE);
 	if (!buffer)
 		return (NULL);
-	found = 0;
-	x = 1;
-	while (found == 0 && x != 0)
+	while (has_newline(stash) == 0 && bytes != 0)
 	{
-		stash = NULL;
-		x = read(fd, buffer, BUFFER_SIZE);
-		if (x == -1)
+		bytes = read(fd, buffer, BUFFER_SIZE - 1);
+		if (bytes == -1)
 		{
 			free(buffer);
 			return (NULL);
 		}
-		buffer[x] = '\0';
-		i = 0;
-		while (buffer[i])
-		{
-			if (buffer[i] == '\n')
-				found = 1;
-			i++;
-		}
+		buffer[bytes] = '\0';
+		tmp = join_strings (stash, buffer);
+		if (!tmp)
+			return (NULL);
+		free(stash);
+		stash = tmp;
 	}
-	line = NULL;
-	i = 0;
-	while (buffer[i])
-	{
-		if (buffer[i] == '\n')
-		{
-			found = 1;
-			line = malloc(i + 2);
-			k = 0;
-			while (k <= i)
-			{
-				line[k] = buffer[k];
-				k++;
-			}
-			line[k] = '\0';
-			j = i + 1;
-			while (buffer[j])
-				j++;
-			rest = malloc(j - i);
-			k = 0;
-			while (buffer[i + 1])
-			{
-				rest[k] = buffer[i + 1];
-				k++;
-				i++;
-			}
-			rest [k] = '\0';
-		}
-		i++;
-	}
-	return (line);
+	free(buffer);
+	return (stash);
+}
+
+char	*get_next_line(int fd)
+{
+
 }
