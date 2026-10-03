@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jagrund <jagrund@student.42.fr>            +#+  +:+       +#+        */
+/*   By: majid <majid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 17:33:42 by jagrund           #+#    #+#             */
-/*   Updated: 2026/10/01 21:28:53 by jagrund          ###   ########.fr       */
+/*   Updated: 2026/10/03 15:46:38 by majid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1042
 # endif
 
 # include <unistd.h>
@@ -23,7 +23,7 @@
 
 
 char	*get_next_line(int fd);
-int		count_len(char	*str);
+size_t	ft_strlen(const char *str);
 char	*dup_string(char *s);
 char	*join_strings(char *s1, char *s2);
 char	*make_line(char *stash);

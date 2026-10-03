@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jagrund <jagrund@student.42.fr>            +#+  +:+       +#+        */
+/*   By: majid <majid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 20:02:01 by jagrund           #+#    #+#             */
-/*   Updated: 2026/10/01 19:43:19 by jagrund          ###   ########.fr       */
+/*   Updated: 2026/10/03 15:34:46 by majid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	count_len(char	*str)
+size_t	ft_strlen(const char *str) // ft_strlen
 {
-	int	i;
+	size_t	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] != 0)
-	{
 		i++;
-	}
 	return (i);
 }
 
-char	*dup_string(char *s)
+char	*dup_string(char *s) // ft_strdup
 {
 	char	*copy;
 	size_t	i;
 
 	if (!s)
 		return (NULL);
-	copy = malloc(count_len(s) + 1);
+	copy = malloc(ft_strlen(s) + 1);
 	if (!copy)
 		return (NULL);
 	i = 0;
@@ -44,7 +44,7 @@ char	*dup_string(char *s)
 	return (copy);
 }
 
-char	*join_strings(char *s1, char *s2)
+char	*join_strings(char *s1, char *s2) // ft_strjoin
 {
 	char	*str;
 	size_t	len1;
@@ -55,8 +55,8 @@ char	*join_strings(char *s1, char *s2)
 		return (dup_string(s2));
 	if (!s2)
 		return (dup_string(s1));
-	len1 = count_len(s1);
-	len2 = count_len(s2);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
 	str = malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!str)
 		return (NULL);
@@ -112,7 +112,7 @@ char	*make_rest(char *stash)
 		i++;
 	if (stash[i] != '\n' || stash[i + 1] == '\0')
 		return (NULL);
-	rest = malloc(count_len(stash + i + 1) + 1);
+	rest = malloc(ft_strlen(stash + i + 1) + 1);
 	if (!rest)
 		return (NULL);
 	k = 0;
