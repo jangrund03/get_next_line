@@ -6,7 +6,7 @@
 /*   By: majid <majid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 16:59:38 by jagrund           #+#    #+#             */
-/*   Updated: 2026/10/03 15:59:09 by majid            ###   ########.fr       */
+/*   Updated: 2026/10/03 16:02:55 by majid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*free_and_null(char **ptr)
 	return (NULL);
 }
 
-int	has_newline(char *s)
+static int	has_newline(char *s)
 {
 	int	i;
 

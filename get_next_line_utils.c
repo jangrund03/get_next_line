@@ -6,13 +6,13 @@
 /*   By: majid <majid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 20:02:01 by jagrund           #+#    #+#             */
-/*   Updated: 2026/10/03 15:34:46 by majid            ###   ########.fr       */
+/*   Updated: 2026/10/03 16:02:12 by majid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str) // ft_strlen
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str) // ft_strlen
 	return (i);
 }
 
-char	*dup_string(char *s) // ft_strdup
+char	*dup_string(char *s)
 {
 	char	*copy;
 	size_t	i;
@@ -44,7 +44,7 @@ char	*dup_string(char *s) // ft_strdup
 	return (copy);
 }
 
-char	*join_strings(char *s1, char *s2) // ft_strjoin
+char	*join_strings(char *s1, char *s2)
 {
 	char	*str;
 	size_t	len1;
